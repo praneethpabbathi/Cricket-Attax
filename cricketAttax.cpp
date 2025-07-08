@@ -449,14 +449,23 @@ int main() {
     random_device rd;
     mt19937 g(rd());
     shuffle(deck.begin(), deck.end(), g);
-
-    string pname;
-    cout << "Enter your name: ";
-    getline(cin, pname);
-    if (pname.empty()) pname = "Player 1";
-
-    Player* player1 = new Player(pname, false); 
-    Player* player2 = new Player("Bot", true);  
+    string pname1, pname2, isBotInput;
+    bool isBot = false;
+    
+    cout << "Enter name for Player 1: ";
+    cin >> pname1;
+    
+    cout << "Enter name for Player 2: ";
+    cin >> pname2;
+    
+    cout << "(Announcement) Type 'true' to make Player 2 a bot, or 'false' for a human opponent:\n";
+    cin >> isBotInput;
+    
+    isBot = (isBotInput == "true");
+    
+    Player* player1 = new Player(pname1, false); 
+    Player* player2 = new Player(pname2, isBot);
+ 
 
     for (size_t i = 0; i < deck.size(); ++i) {
         if (i % 2 == 0) player1->addCard(deck[i]);
