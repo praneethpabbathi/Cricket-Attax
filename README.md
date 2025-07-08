@@ -21,7 +21,7 @@ The project models cricketers as cards and simulates gameplay based on real-worl
 
 ## Motivation
 
-Inspired by the card games I enjoyed as a child, this project was created to revisit and strengthen my understanding of Object-Oriented Programming in C++. By modeling cricketers as dynamic card entities, I aimed to apply key OOP principles—such as inheritance, polymorphism, virtual inheritance, and abstract class design—in a practical and engaging way. Building a game from scratch also allowed me to explore real-time decision logic, stat-based comparisons, and gameplay mechanics in a structured, object-oriented environment.
+- Inspired by the card games I enjoyed as a child, this project was created to revisit and strengthen my understanding of Object-Oriented Programming in C++. By modeling cricketers as dynamic card entities, I aimed to apply key OOP principles—such as inheritance, polymorphism, virtual inheritance, and abstract class design—in a practical and engaging way. Building a game from scratch also allowed me to explore real-time decision logic, stat-based comparisons, and gameplay mechanics in a structured, object-oriented environment.
 ---
 
 ## Game Rules & How It Works
