@@ -1,88 +1,114 @@
-Cricket Attax – OOP-Based C++ Card Game
-Overview
-Cricket Attax is a 2-player, console-based card game implemented in C++ using Object-Oriented Programming (OOP) principles. Each player competes using a deck of cricketer cards (Batsman, Bowler, or All-Rounder), where rounds are decided based on statistical comparisons chosen by an announcer. The game simulates real-world cricket statistics and turn-based logic in an interactive format.
+# Cricket-Attax – OOP-Based Card Game
 
-Table of Contents
-Game Rules
+## Overview
 
-Project Structure
+**Cricket Attax** is a 2-player, console-based card game built in **C++** using fundamental **Object-Oriented Programming (OOP)** principles.  
+The project models cricketers as cards and simulates gameplay based on real-world stats, announcer-driven comparisons, and strategic tie-break mechanics.
 
-OOP Concepts Used
+---
 
-Challenges and Solutions
+## Table of Contents
 
-Possible Improvements
+- [Motivation](#motivation)
+- [Game Rules & How It Works](#game-rules--how-it-works)
+- [Project Structure](#project-structure)
+- [OOP Concepts Used](#oop-concepts-used)
+- [Challenges & How I Solved Them](#challenges--how-i-solved-them)
+- [Possible Improvements](#possible-improvements)
+- [Data Source](#data-source)
 
-Data Source
+---
 
-Game Rules
-Two players are each dealt an equal number of shuffled cards.
+## Motivation
 
-Each card represents a cricketer and is of type: Batsman, Bowler, or All-Rounder.
+This project was created to apply object-oriented principles to a game environment while reinforcing key C++ concepts like inheritance, polymorphism, encapsulation, and abstract class design. It also aimed to simulate a dynamic and engaging card-based battle using real cricket data.
 
-An announcer (rotating between players) selects a valid stat (e.g., runs, wickets, strike rate) from the top card types of both players.
+---
 
-The top cards are compared using the selected stat:
+## Game Rules & How It Works
 
-The player with the higher value wins the round and collects both cards (and any tie pile).
+- Two players are dealt an equal number of shuffled cards.
+- Each card represents a cricketer with real-life stats:
+  - **Batsman**, **Bowler**, or **AllRounder** (inherits both).
+- An **announcer** (rotating between players) chooses a valid stat based on the card types on top of each deck.
+- The selected stat is compared:
+  - The player with the **higher stat value** wins the round and collects both cards (and any tie-pile).
+  - If there is a **tie**, both cards go to the tie-pile, and the announcer role switches.
+  - The next round winner collects the **entire tie-pile**.
+- The game ends when:
+  - A player runs out of cards (they lose), or
+  - A maximum round limit (e.g., 99) is reached — the player with more cards wins.
 
-If it's a tie:
+---
 
-Both cards go to a tie pile.
+## Project Structure
 
-The announcer role is passed to the other player.
+- Implemented three types of Cricketer cards using inheritance and polymorphism:
+  - `Batsman_Card` – includes `Runs`, `Average`, `Strike Rate`
+  - `Bowler_Card` – includes `Wickets`, `Economy`, `Bowling Average`
+  - `AllRounder` – inherits from both Batsman and Bowler
 
-The winner of a tie-break round claims the entire tie pile.
+- Designed a `Player` class to:
+  - Maintain a queue of cards (player’s deck)
+  - Handle card addition/removal and stat retrieval
+  - Support human vs. bot logic
 
-The game ends when:
+- Built a `Game` class to:
+  - Shuffle and distribute cards
+  - Allow announcers to choose valid stats
+  - Compare cards and determine round outcomes
+  - Manage the tie-pile and announcer switching
+  - Track total rounds and declare the final winner
 
-One player runs out of cards (they lose), or
+---
 
-A predefined maximum round limit is reached, and the player with more cards wins.
+## OOP Concepts Used
 
-Project Structure
-Cricketer_Card (Abstract Class): Defines the base structure for all cards.
+- **Abstract Classes:**  
+  - `Cricketer_Card` is an abstract base class with a pure virtual `get_score()` method.
 
-Batsman_Card: Inherits from Cricketer_Card; includes batting-specific stats.
+- **Polymorphism:**  
+  - Functions like `get_score()` and `print_card()` are overridden in derived classes for dynamic behavior.
 
-Bowler_Card: Inherits from Cricketer_Card; includes bowling-specific stats.
+- **Inheritance:**  
+  - `Batsman_Card`, `Bowler_Card`, and `AllRounder` inherit from the base class.
 
-AllRounder: Inherits from both Batsman_Card and Bowler_Card using virtual inheritance.
+- **Virtual Inheritance:**  
+  - Used in `AllRounder` to resolve the **diamond problem** caused by multiple inheritance from `Cricketer_Card`.
 
-Player Class: Maintains each player’s deck using a queue. Supports operations like adding/removing cards and accessing top card stats.
+- **Encapsulation:**  
+  - Game and Player states are encapsulated using private data members with public interfaces.
 
-Game Class: Manages gameplay loop, round logic, announcer handling, tie resolution, and declaring the winner.
+---
 
-OOP Concepts Used
-Abstraction: Cricketer_Card serves as an abstract base class with pure virtual functions like get_score().
+## Challenges & How I Solved Them
 
-Polymorphism: Derived classes override virtual methods like get_score() and print_card() for runtime behavior.
+- **Diamond Problem:**  
+  - Occurred because `AllRounder` inherits from both `Batsman_Card` and `Bowler_Card`, which themselves inherit from `Cricketer_Card`.  
+  - **Solution:** Used `virtual public` inheritance to ensure only one instance of the base class exists.
 
-Inheritance: Specialized card types like Batsman_Card, Bowler_Card, and AllRounder inherit from the base class.
+- **Tie-break Logic:**  
+  - Managing multiple consecutive ties and dynamic announcer switching was tricky.  
+  - **Solution:** Implemented a `tiePile` queue and alternating announcer logic to handle complex edge cases.
 
-Virtual Inheritance: AllRounder uses virtual inheritance to resolve ambiguity caused by multiple inheritance (diamond problem).
+---
 
-Encapsulation: Player and game state data are kept private and accessed via public member functions.
+## Possible Improvements
 
-Challenges and Solutions
-Diamond Problem: The AllRounder class inherits from both Batsman_Card and Bowler_Card, which in turn inherit from Cricketer_Card.
-Solution: Applied virtual public inheritance to ensure a single instance of the base class is shared.
+- Add a graphical interface using a GUI library like SFML or Qt.
+- Allow user input to create custom card decks.
+- Add support for 3–4 players.
+- Implement stat-based difficulty levels or power-up cards.
 
-Tie-break Logic: Implementing correct handling of tie rounds and managing a growing tie pile.
-Solution: Used a queue to manage tie pile and incorporated logic to assign it correctly when a player wins.
+---
 
-Stat Selection: Ensuring announcer only picks valid stats depending on the card types in play.
-Solution: Dynamically determined valid stats from both players’ top cards each round.
+## Data Source
 
-Possible Improvements
-Add a graphical user interface (GUI) using Qt or SFML.
+Cricketer stats were sourced and formatted from publicly available data on:
 
-Extend support for more than 2 players.
+- [ESPN Cricinfo](https://www.espncricinfo.com/)
 
-Enable player profile saving and custom deck creation.
+These stats include:
+- Runs, Wickets, Strike Rate, Economy, Batting/Bowling Averages, Matches, Age, and more.
 
-Add AI strategy for stat selection instead of random or manual choice.
-
-Data Source
-Player stats (runs, wickets, averages, etc.) were collected and formatted from ESPN Cricinfo.
-
+---
