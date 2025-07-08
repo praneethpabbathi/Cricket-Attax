@@ -3,7 +3,7 @@
 ## Overview
 
 **Cricket Attax** is a 2-player, console-based card game built in **C++** using fundamental **Object-Oriented Programming (OOP)** principles.  
-The project models cricketers as cards and simulates gameplay based on real-world stats, announcer-driven comparisons, and strategic tie-break mechanics.
+The project models cricketers as cards and simulates gameplay based on real-world stats, announcer-driven comparisons.
 
 ---
 
@@ -21,20 +21,24 @@ The project models cricketers as cards and simulates gameplay based on real-worl
 
 ## Motivation
 
-This project was created to apply object-oriented principles to a game environment while reinforcing key C++ concepts like inheritance, polymorphism, encapsulation, and abstract class design. It also aimed to simulate a dynamic and engaging card-based battle using real cricket data.
-
+Inspired by the card games I enjoyed as a child, this project was created to revisit and strengthen my understanding of Object-Oriented Programming in C++. By modeling cricketers as dynamic card entities, I aimed to apply key OOP principles—such as inheritance, polymorphism, virtual inheritance, and abstract class design—in a practical and engaging way. Building a game from scratch also allowed me to explore real-time decision logic, stat-based comparisons, and gameplay mechanics in a structured, object-oriented environment.
 ---
 
 ## Game Rules & How It Works
 
 - Two players are dealt an equal number of shuffled cards.
-- Each card represents a cricketer with real-life stats:
-  - **Batsman**, **Bowler**, or **AllRounder** (inherits both).
-- An **announcer** (rotating between players) chooses a valid stat based on the card types on top of each deck.
+- Each card represents a cricketer with real-life stats and is one of the following types:
+  - **Batsman**
+  - **Bowler**
+  - **AllRounder** (inherits both Batsman and Bowler stats)
+- An **announcer** (alternates between players) selects a valid stat based on the top card types of both players.
 - The selected stat is compared:
-  - The player with the **higher stat value** wins the round and collects both cards (and any tie-pile).
-  - If there is a **tie**, both cards go to the tie-pile, and the announcer role switches.
-  - The next round winner collects the **entire tie-pile**.
+  - The player with the **higher stat value** wins the round and collects both cards (plus any tie-pile).
+  - If there is a **tie**:
+    - Both cards go into the **tie-pile**
+    - The announcer role switches
+  - The next round winner collects the **entire tie-pile**
+  - The **winner becomes the announcer** for the next round; if tied, announcer switches
 - The game ends when:
   - A player runs out of cards (they lose), or
   - A maximum round limit (e.g., 99) is reached — the player with more cards wins.
@@ -87,10 +91,6 @@ This project was created to apply object-oriented principles to a game environme
   - Occurred because `AllRounder` inherits from both `Batsman_Card` and `Bowler_Card`, which themselves inherit from `Cricketer_Card`.  
   - **Solution:** Used `virtual public` inheritance to ensure only one instance of the base class exists.
 
-- **Tie-break Logic:**  
-  - Managing multiple consecutive ties and dynamic announcer switching was tricky.  
-  - **Solution:** Implemented a `tiePile` queue and alternating announcer logic to handle complex edge cases.
-
 ---
 
 ## Possible Improvements
@@ -98,7 +98,7 @@ This project was created to apply object-oriented principles to a game environme
 - Add a graphical interface using a GUI library like SFML or Qt.
 - Allow user input to create custom card decks.
 - Add support for 3–4 players.
-- Implement stat-based difficulty levels or power-up cards.
+- Implement stat-based difficulty levels or power-up(traditionally known as GOLD,SILVER) cards.
 
 ---
 
